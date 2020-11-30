@@ -4,6 +4,14 @@ namespace Api.Domain.Models
 {
     public class OfficeModel : BaseModel
     {
+        private Guid _electionId;
+        public Guid ElectionId
+        {
+            get { return _electionId; }
+            set { _electionId = value; }
+        }
+
+
         private string _name;
         public string Name
         {

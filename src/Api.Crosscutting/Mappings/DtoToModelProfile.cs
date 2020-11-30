@@ -44,6 +44,10 @@ namespace Api.CrossCutting.Mappings
             #region Office
             CreateMap<OfficeModel, OfficeDto>()
                 .ReverseMap();
+            CreateMap<OfficeModel, OfficeDtoCreate>()
+                .ReverseMap();
+            CreateMap<OfficeModel, OfficeDtoUpdate>()
+                .ReverseMap();
             #endregion
 
             #region Election

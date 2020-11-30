@@ -37,8 +37,14 @@ namespace Api.CrossCutting.Mappings
             CreateMap<ElectedDto, ElectedEntity>()
                .ReverseMap();
 
+            #region Office
             CreateMap<OfficeDto, OfficeEntity>()
                .ReverseMap();
+            CreateMap<OfficeDtoCreateResult, OfficeEntity>()
+               .ReverseMap();
+            CreateMap<OfficeDtoUpdateResult, OfficeEntity>()
+               .ReverseMap();
+            #endregion
 
             #region Election
             CreateMap<ElectionDto, ElectionEntity>()

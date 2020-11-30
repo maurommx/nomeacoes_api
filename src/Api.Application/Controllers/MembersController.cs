@@ -74,7 +74,7 @@ namespace Api.Application.Controllers
                 var result = await _service.Post(member);
                 if (result != null)
                 {
-                    return Created(new Uri(Url.Link("GeMembertWithId", new { id = result.Id })), result);
+                    return Created(new Uri(Url.Link("GetMemberWithId", new { id = result.Id })), result);
                 }
                 else
                 {

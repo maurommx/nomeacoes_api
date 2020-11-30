@@ -6,16 +6,17 @@ using Api.Domain.Entities;
 using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.Services.Office;
 using Api.Domain.Models;
+using Api.Domain.Repository;
 using AutoMapper;
 
 namespace Api.Service.Services
 {
     public class OfficeService : IOfficeService
     {
-        private IRepository<OfficeEntity> _repository;
+        private IOfficeRepository _repository;
         private readonly IMapper _mapper;
 
-        public OfficeService(IRepository<OfficeEntity> repository, IMapper mapper)
+        public OfficeService(IOfficeRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -37,6 +38,12 @@ namespace Api.Service.Services
             var listEntity = await _repository.SelectAsync();
             return _mapper.Map<IEnumerable<OfficeDto>>(listEntity);
         }
+        public async Task<IEnumerable<OfficeDto>> GetAllWithInclude()
+        {
+            var listEntity = await _repository.SelectFullAsync();
+            return _mapper.Map<IEnumerable<OfficeDto>>(listEntity);
+        }
+
 
         public async Task<OfficeDtoCreateResult> Post(OfficeDtoCreate office)
         {

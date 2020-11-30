@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Api.Data.Context;
 using Api.Data.Repository;
 using Api.Domain.Entities;
@@ -15,5 +18,42 @@ namespace Api.Data.Implementations
         {
             _dataset = context.Set<OfficeEntity>();
         }
+
+        public async Task<IEnumerable<OfficeEntity>> SelectFullAsync()
+        {
+            try
+            {
+                return await _dataset.Include(p => p.Election).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<OfficeEntity>> SelectWithIncludeAsync()
+        {
+            try
+            {
+                return await _dataset.Include(p => p.Election).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        // public async Task<IEnumerable<OfficeEntity>> SelectWithIncludeAsync()
+        // {
+        //     try
+        //     {
+        //         return await _dataset.Include(p => p.Election).ToListAsync();
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         throw ex;
+        //     }
+        // }
+
     }
 }

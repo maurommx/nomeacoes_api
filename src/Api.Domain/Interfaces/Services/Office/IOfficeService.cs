@@ -9,6 +9,7 @@ namespace Api.Domain.Interfaces.Services.Office
     {
         Task<OfficeDto> Get(Guid id);
         Task<IEnumerable<OfficeDto>> GetAll();
+        Task<IEnumerable<OfficeDto>> GetAllWithInclude();
         Task<OfficeDtoCreateResult> Post(OfficeDtoCreate office);
         Task<OfficeDtoUpdateResult> Put(OfficeDtoUpdate office);
         Task<bool> Delete(Guid id);

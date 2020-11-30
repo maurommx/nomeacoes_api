@@ -28,6 +28,7 @@ namespace Api.Application.Controllers
             }
             try
             {
+                // return Ok(await _service.GetAllWithInclude());
                 return Ok(await _service.GetAll());
             }
             catch (ArgumentException e)
@@ -74,7 +75,7 @@ namespace Api.Application.Controllers
                 var result = await _service.Post(office);
                 if (result != null)
                 {
-                    return Created(new Uri(Url.Link("GeOfficeWithId", new { id = result.Id })), result);
+                    return Created(new Uri(Url.Link("GetOfficeWithId", new { id = result.Id })), result);
                 }
                 else
                 {
