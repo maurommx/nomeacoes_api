@@ -25,7 +25,7 @@ namespace Api.CrossCutting.DependencyInjection
 
 
             serviceCollection.AddDbContext<MyContext>(
-                options => options.UseNpgsql("Server=192.168.100.105;Port=5432;Database=nomeacoes;User Id=postgres;Password=P@ssword00;")
+                options => options.UseNpgsql("Server=localhost;Port=5432;Database=nomeacoes;User Id=postgres;Password=postgres;")
             );
 
 

@@ -25,7 +25,7 @@ namespace Api.Data.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
             optionsBuilder
             // .UseLazyLoadingProxies()
-            .UseNpgsql("Server=192.168.100.105;Port=5432;Database=nomeacoes;User Id=postgres;Password=P@ssword00;");
+            .UseNpgsql("Server=localhost;Port=5432;Database=nomeacoes;User Id=postgres;Password=postgres;");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -38,7 +38,7 @@ namespace application
 
             if (_environment.IsEnvironment("Testing"))
             {
-                Environment.SetEnvironmentVariable("DB_CONNECTION", "Server=192.168.100.2;Port=5432;Database=nomeacoes;User Id=postgres;Password=P@ssword00;");
+                Environment.SetEnvironmentVariable("DB_CONNECTION", "Server=localhost;Port=5432;Database=nomeacoes;User Id=postgres;Password=postgres;");
                 Environment.SetEnvironmentVariable("DATABASE", "PGSQL");
                 Environment.SetEnvironmentVariable("MIGRATION", "APLICAR");
                 Environment.SetEnvironmentVariable("Audience", "ExemploAudience");
@@ -57,16 +57,22 @@ namespace application
                         {
                             options.AddPolicy(name: MyAllowSpecificOrigins, builder => builder
                                 .WithOrigins(
-                                    "http://127.0.0.1:9090",
+                                    "http://localhost:9090",
                                     "http://127.0.0.1:5000",
+                                    "http://127.0.0.1:8080",
+                                    "http://127.0.0.1:5432",
                                     "http://127.0.0.1",
                                     "http://localhost:9090",
-                                    "http://localhost:8080",
                                     "http://localhost:5000",
+                                    "http://localhost:8080",
+                                    "http://localhost5432",
                                     "http://localhost",
-                                    "http://192.168.100.5:9090",
-                                    "http://192.168.100.5:5000",
-                                    "http://192.168.100.5"
+                                    "http://192.168.100.104:9090",
+                                    "http://192.168.100.104:5000",
+                                    "http://192.168.100.104:8080",
+                                    "http://192.168.100.104:5432",
+                                    "http://192.168.100.104"
+
                                 )
                                 .AllowAnyMethod()
                                 .AllowAnyHeader()
