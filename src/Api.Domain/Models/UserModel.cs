@@ -1,4 +1,6 @@
 using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Api.Domain.Models
 {
@@ -17,6 +19,27 @@ namespace Api.Domain.Models
             get { return _email; }
             set { _email = value; }
         }
+
+        private string senha;
+        public string Senha
+        {
+            get { return senha; }
+            set
+            {
+                MD5 md5Hash = MD5.Create();
+                byte[] data = md5Hash.ComputeHash(buffer: Encoding.UTF8.GetBytes(value));
+                // Cria-se um StringBuilder para recompôr a string.
+                StringBuilder sBuilder = new StringBuilder();
+
+                // Loop para formatar cada byte como uma String em hexadecimal
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString("x2"));
+                }
+                senha = sBuilder.ToString();
+            }
+        }
+
 
     }
 }

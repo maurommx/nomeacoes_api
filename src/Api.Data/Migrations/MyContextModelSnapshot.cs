@@ -16,7 +16,7 @@ namespace Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Api.Domain.Entities.AssociateEntity", b =>
@@ -114,8 +114,8 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bd3c0f5d-87a9-4bac-8cd8-73c671cb368c"),
-                            CreateAt = new DateTime(2020, 10, 5, 10, 8, 52, 685, DateTimeKind.Local).AddTicks(1732),
+                            Id = new Guid("fe241124-3909-41bf-b398-0a1ca4306c7d"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(3548),
                             Name = "Eleições 2020"
                         });
                 });
@@ -150,20 +150,20 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f060a687-65f2-4663-ba0c-0fd2d7622f96"),
-                            CreateAt = new DateTime(2020, 10, 5, 10, 8, 52, 685, DateTimeKind.Local).AddTicks(4182),
+                            Id = new Guid("768459fe-e8c9-4a4d-bcf4-bfff1db1451a"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(5958),
                             Name = "Marcelle"
                         },
                         new
                         {
-                            Id = new Guid("0baf70b3-82ea-4231-82f4-ca1db046afef"),
-                            CreateAt = new DateTime(2020, 10, 5, 10, 8, 52, 685, DateTimeKind.Local).AddTicks(4227),
+                            Id = new Guid("6cb7c6e2-80d4-4ca7-8a96-9db7d23e8067"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(6008),
                             Name = "Fabiana"
                         },
                         new
                         {
-                            Id = new Guid("4ac45dda-7443-465c-b0a5-497f19944cc9"),
-                            CreateAt = new DateTime(2020, 10, 5, 10, 8, 52, 685, DateTimeKind.Local).AddTicks(4232),
+                            Id = new Guid("0b7c0995-98b5-4963-be58-386e90d9419f"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(6011),
                             Name = "Carolina"
                         });
                 });
@@ -203,11 +203,252 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("80c6df2f-2b29-470b-9a1e-dc6a057df3da"),
-                            CreateAt = new DateTime(2020, 10, 5, 10, 8, 52, 685, DateTimeKind.Local).AddTicks(3217),
-                            ElectionId = new Guid("bd3c0f5d-87a9-4bac-8cd8-73c671cb368c"),
+                            Id = new Guid("0865ba8a-f3be-4778-993d-6c7646806f4f"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(4903),
+                            ElectionId = new Guid("fe241124-3909-41bf-b398-0a1ca4306c7d"),
                             Name = "Aventureiros",
                             QtdeAssociates = 0
+                        });
+                });
+
+            modelBuilder.Entity("Api.Domain.Entities.PermissionEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("CreateAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("67963d11-d9c2-4b05-9315-fff08c07733f"),
+                            Name = "Usuários Listar",
+                            Slug = "user-list"
+                        },
+                        new
+                        {
+                            Id = new Guid("aee40c5c-d8ad-43d4-9de6-4cd0539441db"),
+                            Name = "Usuários Inserir",
+                            Slug = "user-insert"
+                        },
+                        new
+                        {
+                            Id = new Guid("14d38cf2-c5c2-4baf-91b3-abc2a2c29079"),
+                            Name = "Usuários Alterar",
+                            Slug = "user-Update"
+                        },
+                        new
+                        {
+                            Id = new Guid("ec954b71-9b02-499e-91d6-3e2f4ee39eda"),
+                            Name = "Usuários Apagar",
+                            Slug = "user-delete"
+                        },
+                        new
+                        {
+                            Id = new Guid("1fd4b7d5-fc03-4b92-a785-d3f5cc312c69"),
+                            Name = "Permissões Listar",
+                            Slug = "permission-list"
+                        },
+                        new
+                        {
+                            Id = new Guid("77c32c2d-cacb-47c4-979a-4f7ac5dba98f"),
+                            Name = "Permissões Inserir",
+                            Slug = "permission-insert"
+                        },
+                        new
+                        {
+                            Id = new Guid("16c724e3-2ee6-4d7e-a3b6-5293d92e4941"),
+                            Name = "Permissões Alterar",
+                            Slug = "permission-Update"
+                        },
+                        new
+                        {
+                            Id = new Guid("c8e3b20a-038d-4ff1-a608-2671a6b1217c"),
+                            Name = "Permissões Apagar",
+                            Slug = "permission-delete"
+                        },
+                        new
+                        {
+                            Id = new Guid("6ad1f182-e175-431a-8a46-6f0b7af24895"),
+                            Name = "Papeis Listar",
+                            Slug = "roles-list"
+                        },
+                        new
+                        {
+                            Id = new Guid("d97c2c7b-14d1-4417-b048-44d186b7fff2"),
+                            Name = "Papeis Inserir",
+                            Slug = "roles-insert"
+                        },
+                        new
+                        {
+                            Id = new Guid("1545a018-6e16-4f7f-96f6-0eeb52cb0b54"),
+                            Name = "Papeis Alterar",
+                            Slug = "roles-Update"
+                        },
+                        new
+                        {
+                            Id = new Guid("8e757f20-953e-4f79-8fb0-938e52951871"),
+                            Name = "Papeis Apagar",
+                            Slug = "roles-delete"
+                        });
+                });
+
+            modelBuilder.Entity("Api.Domain.Entities.RoleEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("CreateAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 864, DateTimeKind.Local).AddTicks(5423),
+                            Name = "Administrador"
+                        });
+                });
+
+            modelBuilder.Entity("Api.Domain.Entities.RolePermissionEntity", b =>
+                {
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PermissionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("CreateAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("RoleId", "PermissionId");
+
+                    b.HasIndex("PermissionId");
+
+                    b.ToTable("RolePermission");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("67963d11-d9c2-4b05-9315-fff08c07733f"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(106),
+                            Id = new Guid("bb2370ab-a560-469c-9d7c-76f571200182")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("aee40c5c-d8ad-43d4-9de6-4cd0539441db"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(185),
+                            Id = new Guid("df5b3183-8595-4f6c-9fec-a98737c4b418")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("14d38cf2-c5c2-4baf-91b3-abc2a2c29079"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(198),
+                            Id = new Guid("f13814d9-5ce8-4113-ab66-dea3cf76eb2b")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("ec954b71-9b02-499e-91d6-3e2f4ee39eda"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(201),
+                            Id = new Guid("7ed650bd-aad8-4cbe-aa50-7b4c97f70d02")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("1fd4b7d5-fc03-4b92-a785-d3f5cc312c69"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(205),
+                            Id = new Guid("e6fa2b1b-5c5f-48b7-abe3-c832f5a4e06f")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("77c32c2d-cacb-47c4-979a-4f7ac5dba98f"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(208),
+                            Id = new Guid("48a1dece-b73a-4245-9608-a40f822ae48f")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("16c724e3-2ee6-4d7e-a3b6-5293d92e4941"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(210),
+                            Id = new Guid("99e86087-ba90-4e08-ae93-2a8312623ddc")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("c8e3b20a-038d-4ff1-a608-2671a6b1217c"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(213),
+                            Id = new Guid("fd1a1934-237f-45e3-8986-c226b895cd08")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("6ad1f182-e175-431a-8a46-6f0b7af24895"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(215),
+                            Id = new Guid("3de4f1e7-b412-46b2-8c96-d1ffdd397411")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("d97c2c7b-14d1-4417-b048-44d186b7fff2"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(218),
+                            Id = new Guid("647360a1-ae78-4b55-b8ab-10c9ec1d7422")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("1545a018-6e16-4f7f-96f6-0eeb52cb0b54"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(223),
+                            Id = new Guid("ec372f7d-5bf1-46c5-a6e6-b473efb3239c")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            PermissionId = new Guid("8e757f20-953e-4f79-8fb0-938e52951871"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(226),
+                            Id = new Guid("7a601b11-63a5-42fe-868e-119279b26f37")
                         });
                 });
 
@@ -221,6 +462,7 @@ namespace Data.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
@@ -228,6 +470,13 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(60)")
                         .HasMaxLength(60);
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Senha")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("timestamp without time zone");
@@ -237,16 +486,20 @@ namespace Data.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("User");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c4b2e5b9-95e4-4008-867f-c2b15e67a1f1"),
-                            CreateAt = new DateTime(2020, 10, 5, 10, 8, 52, 682, DateTimeKind.Local).AddTicks(6853),
-                            Email = "mfrinfo@mail.com",
-                            Name = "Administrador",
-                            UpdateAt = new DateTime(2020, 10, 5, 10, 8, 52, 684, DateTimeKind.Local).AddTicks(77)
+                            Id = new Guid("d7276da4-917d-42d8-8d09-a996f91f98b0"),
+                            CreateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(2257),
+                            Email = "mauro.mmx@gmail.com",
+                            Name = "Mauro Meneses Xavier",
+                            RoleId = new Guid("78e54a43-4fd4-4e01-9980-a9a64fbc5d4b"),
+                            Senha = "698dc19d489c4e4db73e28a713eab07b",
+                            UpdateAt = new DateTime(2021, 2, 10, 5, 50, 49, 867, DateTimeKind.Local).AddTicks(2268)
                         });
                 });
 
@@ -285,6 +538,30 @@ namespace Data.Migrations
                     b.HasOne("Api.Domain.Entities.ElectionEntity", "Election")
                         .WithMany("Offices")
                         .HasForeignKey("ElectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Api.Domain.Entities.RolePermissionEntity", b =>
+                {
+                    b.HasOne("Api.Domain.Entities.PermissionEntity", "Permission")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api.Domain.Entities.RoleEntity", "Role")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Api.Domain.Entities.UserEntity", b =>
+                {
+                    b.HasOne("Api.Domain.Entities.RoleEntity", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

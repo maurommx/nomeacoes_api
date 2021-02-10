@@ -4,9 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.CrossCutting.DependencyInjection;
 using Api.CrossCutting.Mappings;
+using Api.Domain.Security;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,19 +22,58 @@ namespace application
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            _environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment _environment { get; }
+        public string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            if (_environment.IsEnvironment("Testing"))
+            {
+                Environment.SetEnvironmentVariable("DB_CONNECTION", "Server=192.168.100.2;Port=5432;Database=nomeacoes;User Id=postgres;Password=P@ssword00;");
+                Environment.SetEnvironmentVariable("DATABASE", "PGSQL");
+                Environment.SetEnvironmentVariable("MIGRATION", "APLICAR");
+                Environment.SetEnvironmentVariable("Audience", "ExemploAudience");
+                Environment.SetEnvironmentVariable("Issuer", "ExemploIssue");
+                Environment.SetEnvironmentVariable("Seconds", "28800");
+            }
+
+
+
             // services.AddControllers();
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+
+            services.AddCors(options =>
+                        {
+                            options.AddPolicy(name: MyAllowSpecificOrigins, builder => builder
+                                .WithOrigins(
+                                    "http://127.0.0.1:9090",
+                                    "http://127.0.0.1:5000",
+                                    "http://127.0.0.1",
+                                    "http://localhost:9090",
+                                    "http://localhost:8080",
+                                    "http://localhost:5000",
+                                    "http://localhost",
+                                    "http://192.168.100.5:9090",
+                                    "http://192.168.100.5:5000",
+                                    "http://192.168.100.5"
+                                )
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                                .AllowCredentials()
+                            // .AllowAnyOrigin()
+                            );
+                        });
 
 
             ConfigureService.ConfigureDependenciesService(services);
@@ -45,41 +88,41 @@ namespace application
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 
-            // var signingConfigurations = new SigningConfigurations();
-            // services.AddSingleton(signingConfigurations);
+            var signingConfigurations = new SigningConfigurations();
+            services.AddSingleton(signingConfigurations);
 
 
-            // services.AddAuthentication(authOptions =>
-            //             {
-            //                 authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //                 authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //             }).AddJwtBearer(bearerOptions =>
-            //             {
-            //                 var paramsValidation = bearerOptions.TokenValidationParameters;
-            //                 paramsValidation.IssuerSigningKey = signingConfigurations.Key;
-            //                 paramsValidation.ValidAudience = Environment.GetEnvironmentVariable("Audience");
-            //                 paramsValidation.ValidIssuer = Environment.GetEnvironmentVariable("Issuer");
+            services.AddAuthentication(authOptions =>
+                        {
+                            authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                            authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                        }).AddJwtBearer(bearerOptions =>
+                        {
+                            var paramsValidation = bearerOptions.TokenValidationParameters;
+                            paramsValidation.IssuerSigningKey = signingConfigurations.Key;
+                            paramsValidation.ValidAudience = Environment.GetEnvironmentVariable("Audience");
+                            paramsValidation.ValidIssuer = Environment.GetEnvironmentVariable("Issuer");
 
-            //     // Valida a assinatura de um token recebido
-            //     paramsValidation.ValidateIssuerSigningKey = true;
+                            // Valida a assinatura de um token recebido
+                            paramsValidation.ValidateIssuerSigningKey = true;
 
-            //     // Verifica se um token recebido ainda é válido
-            //     paramsValidation.ValidateLifetime = true;
+                            // Verifica se um token recebido ainda é válido
+                            paramsValidation.ValidateLifetime = true;
 
-            //     // Tempo de tolerância para a expiração de um token (utilizado
-            //     // caso haja problemas de sincronismo de horário entre diferentes
-            //     // computadores envolvidos no processo de comunicação)
-            //     paramsValidation.ClockSkew = TimeSpan.Zero;
-            //             });
+                            // Tempo de tolerância para a expiração de um token (utilizado
+                            // caso haja problemas de sincronismo de horário entre diferentes
+                            // computadores envolvidos no processo de comunicação)
+                            paramsValidation.ClockSkew = TimeSpan.Zero;
+                        });
 
             // Ativa o uso do token como forma de autorizar o acesso
             // a recursos deste projeto
-            // services.AddAuthorization(auth =>
-            // {
-            //     auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-            //         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
-            //         .RequireAuthenticatedUser().Build());
-            // });
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
+                    .RequireAuthenticatedUser().Build());
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -102,25 +145,34 @@ namespace application
                     // }
                 });
 
-                // c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                // {
-                //     Description = "Entre com o Token JWT",
-                //     Name = "Authorization",
-                //     In = ParameterLocation.Header,
-                //     Type = SecuritySchemeType.ApiKey
-                // });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Entre com o Token JWT",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
 
-                // c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                //     {
-                //         new OpenApiSecurityScheme {
-                //             Reference = new OpenApiReference {
-                //                 Id = "Bearer",
-                //                 Type = ReferenceType.SecurityScheme
-                //             }
-                //         }, new List<string>()
-                //     }
-                // });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme {
+                            Reference = new OpenApiReference {
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        }, new List<string>()
+                    }
+                });
             });
+
+
+
+            // services.AddCors(options =>
+            //     options.AddPolicy("AnotherPolicy", builder =>
+            //     {
+            //         builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            //     })
+            // );
 
         }
 
@@ -141,11 +193,21 @@ namespace application
 
             app.UseRouting();
 
+            // app.UseCors(option => option.AllowAnyOrigin());
+            app.UseCors();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapGet("/echo", context => context.Response.WriteAsync("echo"))
+                .RequireCors(MyAllowSpecificOrigins);
+
+                endpoints.MapControllers()
+                    .RequireCors(MyAllowSpecificOrigins);
+
+                endpoints.MapGet("/echo2", context => context.Response.WriteAsync("echo2"));
+
 
             });
         }

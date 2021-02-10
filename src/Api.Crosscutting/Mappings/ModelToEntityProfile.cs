@@ -11,6 +11,12 @@ namespace Api.CrossCutting.Mappings
             CreateMap<UserModel, UserEntity>()
                .ReverseMap();
 
+            CreateMap<RoleModel, RoleEntity>()
+               .ReverseMap();
+
+            CreateMap<PermissionModel, PermissionEntity>()
+               .ReverseMap();
+
             CreateMap<MemberModel, MemberEntity>()
                .ReverseMap();
 

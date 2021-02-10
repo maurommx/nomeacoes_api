@@ -2,15 +2,16 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Api.Domain.Dtos;
-using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.User;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
     public class LoginController : ControllerBase
     {
         [AllowAnonymous]

@@ -15,6 +15,8 @@ namespace Api.CrossCutting.DependencyInjection
         {
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             serviceCollection.AddScoped<IUserRepository, UserImplementation>();
+            serviceCollection.AddScoped<IRoleRepository, RoleImplementation>();
+            serviceCollection.AddScoped<IPermissionRepository, PermissionImplementation>();
             serviceCollection.AddScoped<IMemberRepository, MemberImplementation>();
             serviceCollection.AddScoped<IAssociateRepository, AssociateImplementation>();
             serviceCollection.AddScoped<IElectedRepository, ElectedImplementation>();
@@ -23,7 +25,7 @@ namespace Api.CrossCutting.DependencyInjection
 
 
             serviceCollection.AddDbContext<MyContext>(
-                options => options.UseNpgsql("Server=192.168.0.17;Port=5432;Database=nomeacoes;User Id=postgres;Password=P@ssword00;")
+                options => options.UseNpgsql("Server=192.168.100.105;Port=5432;Database=nomeacoes;User Id=postgres;Password=P@ssword00;")
             );
 
 

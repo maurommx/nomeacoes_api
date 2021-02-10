@@ -3,6 +3,8 @@ using Api.Domain.Dtos.Elected;
 using Api.Domain.Dtos.Election;
 using Api.Domain.Dtos.Member;
 using Api.Domain.Dtos.Office;
+using Api.Domain.Dtos.Permission;
+using Api.Domain.Dtos.Role;
 using Api.Domain.Dtos.User;
 using Api.Domain.Entities;
 using AutoMapper;
@@ -19,6 +21,16 @@ namespace Api.CrossCutting.Mappings
             CreateMap<UserDtoCreateResult, UserEntity>()
                .ReverseMap();
             CreateMap<UserDtoUpdateResult, UserEntity>()
+               .ReverseMap();
+            #endregion
+
+            #region Role
+            CreateMap<RoleDto, RoleEntity>()
+               .ReverseMap();
+            #endregion
+
+            #region Permission
+            CreateMap<PermissionDto, PermissionEntity>()
                .ReverseMap();
             #endregion
 

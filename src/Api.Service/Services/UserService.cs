@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Api.Domain.Dtos.User;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
+using Api.Domain.Interfaces.QueryOptions;
 using Api.Domain.Interfaces.Services.User;
 using Api.Domain.Models;
 using AutoMapper;
@@ -32,10 +33,11 @@ namespace Api.Service.Services
             return _mapper.Map<UserDto>(entity);
         }
 
-        public async Task<IEnumerable<UserDto>> GetAll()
+        public async Task<IQueryOptions> GetAll(IQueryOptions query)
         {
-            var listEntity = await _repository.SelectAsync();
-            return _mapper.Map<IEnumerable<UserDto>>(listEntity);
+            var listEntity = await _repository.SelectAsync(query);
+            query.Rows = _mapper.Map<IEnumerable<UserDto>>(listEntity.Rows);
+            return query;
         }
 
         public async Task<UserDtoCreateResult> Post(UserDtoCreate user)

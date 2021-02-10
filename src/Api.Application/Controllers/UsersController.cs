@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Api.Domain.Dtos.User;
 using Api.Domain.Interfaces.Services.User;
+using Api.Domain.QueryOptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,7 @@ namespace Api.Application.Controllers
 
         // [Authorize("Bearer")]
         [HttpGet]
-        public async Task<ActionResult> GetAll()
+        public async Task<ActionResult> GetAll([FromQuery] QueryOptions query)
         {
             if (!ModelState.IsValid)
             {
@@ -29,7 +30,7 @@ namespace Api.Application.Controllers
             }
             try
             {
-                return Ok(await _service.GetAll());
+                return Ok(await _service.GetAll(query));
             }
             catch (ArgumentException e)
             {

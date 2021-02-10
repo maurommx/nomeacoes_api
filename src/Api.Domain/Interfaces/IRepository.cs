@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
+using Api.Domain.Interfaces.QueryOptions;
 
 namespace Api.Domain.Interfaces
 {
@@ -11,7 +12,7 @@ namespace Api.Domain.Interfaces
         Task<T> UpdateAsync(T item);
         Task<bool> DeleteAsync(Guid id);
         Task<T> SelectAsync(Guid id);
-        Task<IEnumerable<T>> SelectAsync();
+        Task<IQueryOptions> SelectAsync(IQueryOptions query);
         Task<bool> ExistAsync(Guid id);
     }
 }

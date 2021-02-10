@@ -6,5 +6,6 @@ namespace Api.Domain.Interfaces.Services.User
     public interface ILoginService
     {
         Task<object> FindByLogin(LoginDto user);
+        Task<object> VerifyToken(string token);
     }
 }

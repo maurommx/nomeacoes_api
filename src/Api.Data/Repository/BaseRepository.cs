@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Api.Data.Context;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
+using Api.Domain.Interfaces.QueryOptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Data.Repository
@@ -78,11 +80,14 @@ namespace Api.Data.Repository
             }
         }
 
-        public async Task<IEnumerable<T>> SelectAsync()
+        public async Task<IQueryOptions> SelectAsync(IQueryOptions query)
         {
             try
             {
-                return await _dataset.ToListAsync();
+                int skip = query.Pagination.PageSize * (query.Pagination.Page - 1);
+                query.Pagination.Records = _dataset.Count();
+                query.Rows = await _dataset.Skip(skip).Take(query.Pagination.PageSize).ToListAsync();
+                return query;
             }
             catch (Exception ex)
             {

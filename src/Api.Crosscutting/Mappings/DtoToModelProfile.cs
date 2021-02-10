@@ -4,6 +4,8 @@ using Api.Domain.Dtos.Election;
 using Api.Domain.Dtos.Member;
 using Api.Domain.Dtos.Office;
 using Api.Domain.Dtos.User;
+using Api.Domain.Dtos.Role;
+using Api.Domain.Dtos.Permission;
 using Api.Domain.Models;
 using AutoMapper;
 
@@ -13,6 +15,16 @@ namespace Api.CrossCutting.Mappings
     {
         public DtoToModelProfile()
         {
+            #region Role
+            CreateMap<RoleModel, RoleDto>()
+                .ReverseMap();
+            #endregion
+
+            #region Permission
+            CreateMap<PermissionModel, PermissionDto>()
+                .ReverseMap();
+            #endregion
+
             #region User
             CreateMap<UserModel, UserDto>()
                 .ReverseMap();

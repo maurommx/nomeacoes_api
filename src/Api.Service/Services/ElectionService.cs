@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Api.Domain.Dtos.Election;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
+using Api.Domain.Interfaces.QueryOptions;
 using Api.Domain.Interfaces.Services.Election;
 using Api.Domain.Models;
 using AutoMapper;
@@ -35,10 +36,11 @@ namespace Api.Service.Services
             // return dto;
         }
 
-        public async Task<IEnumerable<ElectionDto>> GetAll()
+        public async Task<IQueryOptions> GetAll(IQueryOptions query)
         {
-            var listEntity = await _repository.SelectAsync();
-            return _mapper.Map<IEnumerable<ElectionDto>>(listEntity);
+            var listEntity = await _repository.SelectAsync(query);
+            query.Rows = _mapper.Map<IEnumerable<ElectionDto>>(listEntity.Rows);
+            return query;
         }
 
         public async Task<ElectionDtoCreateResult> Post(ElectionDtoCreate election)

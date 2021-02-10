@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Api.Domain.Dtos.Office;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
+using Api.Domain.Interfaces.QueryOptions;
 using Api.Domain.Interfaces.Services.Office;
 using Api.Domain.Models;
 using Api.Domain.Repository;
@@ -33,10 +34,11 @@ namespace Api.Service.Services
             return _mapper.Map<OfficeDto>(entity);
         }
 
-        public async Task<IEnumerable<OfficeDto>> GetAll()
+        public async Task<IQueryOptions> GetAll(IQueryOptions query)
         {
-            var listEntity = await _repository.SelectAsync();
-            return _mapper.Map<IEnumerable<OfficeDto>>(listEntity);
+            var listEntity = await _repository.SelectAsync(query);
+            query.Rows = _mapper.Map<IEnumerable<OfficeDto>>(listEntity.Rows);
+            return query;
         }
         public async Task<IEnumerable<OfficeDto>> GetAllWithInclude()
         {
