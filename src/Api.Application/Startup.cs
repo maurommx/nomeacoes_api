@@ -129,6 +129,7 @@ namespace application
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
                     .RequireAuthenticatedUser().Build());
             });
+            
 
             services.AddSwaggerGen(c =>
             {
@@ -203,6 +204,7 @@ namespace application
             app.UseCors();
 
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {

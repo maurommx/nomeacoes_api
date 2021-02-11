@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Api.Application.Filters;
 using Api.Domain.Dtos.Permission;
 using Api.Domain.Interfaces.Services.Permission;
 using Api.Domain.QueryOptions;
@@ -19,7 +20,8 @@ namespace Api.Application.Controllers
             _service = service;
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "permission-list")]
         [HttpGet]
         public async Task<ActionResult> GetAll([FromQuery] QueryOptions query)
         {
@@ -37,7 +39,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "permission-detail")]
         [HttpGet]
         [Route("{id}", Name = "GetPermissionWithId")]
         public async Task<ActionResult> Get(Guid id)
@@ -62,7 +65,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "permission-insert")]
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] PermissionDto permission)
         {
@@ -88,7 +92,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "permission-edit")]
         [HttpPut]
         public async Task<ActionResult> Put([FromBody] PermissionDto permission)
         {
@@ -114,7 +119,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "permission-delete")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {

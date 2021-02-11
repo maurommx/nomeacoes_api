@@ -55,16 +55,19 @@ namespace Api.Data.Context
             );
 
             Guid perm_users_id_list = Guid.NewGuid();
+            Guid perm_users_id_detail = Guid.NewGuid();
             Guid perm_users_id_insert = Guid.NewGuid();
             Guid perm_users_id_update = Guid.NewGuid();
             Guid perm_users_id_delete = Guid.NewGuid();
 
             Guid perm_permissions_id_list = Guid.NewGuid();
+            Guid perm_permissions_id_detail = Guid.NewGuid();
             Guid perm_permissions_id_insert = Guid.NewGuid();
             Guid perm_permissions_id_update = Guid.NewGuid();
             Guid perm_permissions_id_delete = Guid.NewGuid();
 
             Guid perm_roles_id_list = Guid.NewGuid();
+            Guid perm_roles_id_detail = Guid.NewGuid();
             Guid perm_roles_id_insert = Guid.NewGuid();
             Guid perm_roles_id_update = Guid.NewGuid();
             Guid perm_roles_id_delete = Guid.NewGuid();
@@ -78,6 +81,12 @@ namespace Api.Data.Context
                 },
                 new PermissionEntity
                 {
+                    Id = perm_users_id_detail,
+                    Name = "Usuários Detalhe",
+                    Slug = "user-detail"
+                },
+                new PermissionEntity
+                {
                     Id = perm_users_id_insert,
                     Name = "Usuários Inserir",
                     Slug = "user-insert"
@@ -86,7 +95,7 @@ namespace Api.Data.Context
                 {
                     Id = perm_users_id_update,
                     Name = "Usuários Alterar",
-                    Slug = "user-Update"
+                    Slug = "user-update"
                 },
                 new PermissionEntity
                 {
@@ -103,6 +112,12 @@ namespace Api.Data.Context
                 },
                 new PermissionEntity
                 {
+                    Id = perm_permissions_id_detail,
+                    Name = "Permissões Detalhe",
+                    Slug = "permission-detail"
+                },
+                new PermissionEntity
+                {
                     Id = perm_permissions_id_insert,
                     Name = "Permissões Inserir",
                     Slug = "permission-insert"
@@ -111,7 +126,7 @@ namespace Api.Data.Context
                 {
                     Id = perm_permissions_id_update,
                     Name = "Permissões Alterar",
-                    Slug = "permission-Update"
+                    Slug = "permission-update"
                 },
                 new PermissionEntity
                 {
@@ -128,6 +143,12 @@ namespace Api.Data.Context
                 },
                 new PermissionEntity
                 {
+                    Id = perm_roles_id_detail,
+                    Name = "Papeis Detalhe",
+                    Slug = "roles-detail"
+                },
+                new PermissionEntity
+                {
                     Id = perm_roles_id_insert,
                     Name = "Papeis Inserir",
                     Slug = "roles-insert"
@@ -136,7 +157,7 @@ namespace Api.Data.Context
                 {
                     Id = perm_roles_id_update,
                     Name = "Papeis Alterar",
-                    Slug = "roles-Update"
+                    Slug = "roles-update"
                 },
                 new PermissionEntity
                 {

@@ -1,11 +1,13 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Api.Application.Filters;
 using Api.Domain.Dtos.User;
 using Api.Domain.Interfaces.Services.User;
 using Api.Domain.QueryOptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Api.Application.Controllers
 {
@@ -20,10 +22,13 @@ namespace Api.Application.Controllers
             _service = service;
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        // [CustomActionFilter("user-list1")]
+        [AuthorizeClaim("Permissions", "user-list")]
         [HttpGet]
         public async Task<ActionResult> GetAll([FromQuery] QueryOptions query)
         {
+            var a = HttpContext.User;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);  // 400 Bad Request - Solicitação Inválida
@@ -38,7 +43,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "user-detail")]
         [HttpGet]
         [Route("{id}", Name = "GetUserWithId")]
         public async Task<ActionResult> Get(Guid id)
@@ -63,7 +69,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "user-insert")]
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] UserDtoCreate user)
         {
@@ -89,7 +96,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "user-update")]
         [HttpPut]
         public async Task<ActionResult> Put([FromBody] UserDtoUpdate user)
         {
@@ -115,7 +123,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "user-delete")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {

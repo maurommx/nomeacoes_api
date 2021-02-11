@@ -36,6 +36,10 @@ namespace Api.Service.Services
             if (user != null && !string.IsNullOrWhiteSpace(user.Email))
             {
                 baseUser = await _repository.FindByLogin(user.Email, user.Senha);
+
+                var acessos = string.Join(",",  baseUser.Role.RolePermissions.Select(p => p.Permission.Slug).ToArray());
+                var permissions = baseUser.Role.RolePermissions.Select(p => p.Permission.Slug).ToArray();
+
                 if (baseUser == null)
                 {
                     return new
@@ -46,7 +50,25 @@ namespace Api.Service.Services
                 }
                 else
                 {
-                    ClaimsIdentity identity = new ClaimsIdentity(
+
+                    var claims = new List<Claim>();
+                    claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+                    claims.Add(new Claim(JwtRegisteredClaimNames.UniqueName, user.Email));
+                    claims.Add(new Claim(ClaimTypes.NameIdentifier, baseUser.Id.ToString()));
+
+                    claims.Add(new Claim(JwtRegisteredClaimNames.NameId, baseUser.Id.ToString()));
+                    claims.Add(new Claim(ClaimTypes.Sid, baseUser.Id.ToString()));
+                    claims.Add(new Claim("UserID", baseUser.Id.ToString()));
+                    claims.Add(new Claim("Name", baseUser.Name));
+
+                    foreach(var permission in permissions) {
+                        claims.Add(new Claim("Permissions", permission));
+                    }
+
+                    ClaimsIdentity identity = new ClaimsIdentity(claims, "Claims");
+
+
+                    ClaimsIdentity identity1 = new ClaimsIdentity(
                         new GenericIdentity(user.Email),
                         new[]
                         {
@@ -54,12 +76,19 @@ namespace Api.Service.Services
                             new Claim(JwtRegisteredClaimNames.UniqueName, user.Email),
                             new Claim(ClaimTypes.NameIdentifier, baseUser.Id.ToString()),
 
+                            // new Claim("Policy", acessos),
+
                             new Claim(JwtRegisteredClaimNames.NameId, baseUser.Id.ToString()),
                             new Claim(ClaimTypes.Sid, baseUser.Id.ToString()),
                             new Claim("UserID", baseUser.Id.ToString()),
                             new Claim("Name", baseUser.Name),
+
                         }
+
                     );
+                    // foreach(var permission in permissions) {
+                    //     identity.Claims.Append(new Claim("", permission));
+                    // }
 
                     // identity. = baseUser.Id.ToString();
 
@@ -137,6 +166,7 @@ namespace Api.Service.Services
                 message = "Usuário Logado com sucesso"
             };
         }
+
 
     }
 }

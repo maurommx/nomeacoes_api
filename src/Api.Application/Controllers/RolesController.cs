@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Api.Application.Filters;
 using Api.Domain.Dtos.Role;
 using Api.Domain.Interfaces.Services.Role;
 using Api.Domain.QueryOptions;
@@ -19,7 +20,8 @@ namespace Api.Application.Controllers
             _service = service;
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "role-list")]
         [HttpGet]
         public async Task<ActionResult> GetAll([FromQuery] QueryOptions query)
         {
@@ -37,7 +39,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "role-detail")]
         [HttpGet]
         [Route("{id}", Name = "GetRoleWithId")]
         public async Task<ActionResult> Get(Guid id)
@@ -62,7 +65,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "role-insert")]
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] RoleDto role)
         {
@@ -88,7 +92,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "role-update")]
         [HttpPut]
         public async Task<ActionResult> Put([FromBody] RoleDto role)
         {
@@ -114,7 +119,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
+        [AuthorizeClaim("Permissions", "role-delete")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {
