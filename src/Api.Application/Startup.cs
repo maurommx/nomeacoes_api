@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Application.Filters;
+using Api.Application.Middleware;
 using Api.CrossCutting.DependencyInjection;
 using Api.CrossCutting.Mappings;
 using Api.Domain.Security;
@@ -30,7 +32,7 @@ namespace application
 
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment _environment { get; }
-        public string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -46,7 +48,23 @@ namespace application
                 Environment.SetEnvironmentVariable("Seconds", "28800");
             }
 
+            // services.AddCors(c => 
+            // {
+                
+            //     c.AllowAnyMethod()
+            //     .AllowAnyHeader()
+            //     .AllowCredentials()
+            //     .AllowAnyOrigin()
+                
+            // });
 
+
+            // services.AddCors(options =>
+            //     options.AddDefaultPolicy(builder =>
+            //     {
+            //         builder.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed((host) => true).AllowCredentials();
+            //     })
+            // );
 
             // services.AddControllers();
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -131,8 +149,16 @@ namespace application
             });
             
 
+            // services.AddSwaggerGenNewtonsoftSupport(); 
+
             services.AddSwaggerGen(c =>
             {
+                // c.DescribeAllEnumsAsStrings();
+
+                // c.IgnoreObsoleteProperties();
+
+                c.SchemaFilter<SwaggerSkipPropertyFilter>();
+                
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
@@ -181,15 +207,25 @@ namespace application
             //     })
             // );
 
+            // services.AddCors();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // app.UseCors(MyAllowSpecificOrigins);
+            // app.UseCorsMiddleware();
+
+            // app.UseMvc();
+
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -198,10 +234,15 @@ namespace application
                 c.RoutePrefix = string.Empty;
             });
 
+
             app.UseRouting();
 
+            app.UseAuthorization();
+
+            app.UseCors(MyAllowSpecificOrigins);
+
             // app.UseCors(option => option.AllowAnyOrigin());
-            app.UseCors();
+            // app.UseCors();
 
             app.UseAuthorization();
             

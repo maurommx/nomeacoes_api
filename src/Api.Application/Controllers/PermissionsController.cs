@@ -7,11 +7,14 @@ using Api.Domain.Interfaces.Services.Permission;
 using Api.Domain.QueryOptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
+using Api.Domain.Interfaces.QueryOptions;
 
 namespace Api.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    // [EnableCors("MyAllowSpecificOrigins")]
     public class PermissionsController : ControllerBase
     {
         public IPermissionService _service { get; set; }
@@ -20,9 +23,9 @@ namespace Api.Application.Controllers
             _service = service;
         }
 
-        [Authorize("Bearer")]
-        [AuthorizeClaim("Permissions", "permission-list")]
-        [HttpGet]
+        // [Authorize("Bearer")]
+        // [AuthorizeClaim("Permissions", "permission-list")]
+        [HttpPost]
         public async Task<ActionResult> GetAll([FromQuery] QueryOptions query)
         {
             if (!ModelState.IsValid)

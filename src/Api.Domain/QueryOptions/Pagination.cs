@@ -43,9 +43,8 @@ namespace Api.Domain.QueryOptions
         {
             page = Page;
         }
-        public Pagination(int Page, int PageSize)
+        public Pagination(int Page, int PageSize) : this(Page)
         {
-            page = Page;
             pageSize = PageSize;
         }
 

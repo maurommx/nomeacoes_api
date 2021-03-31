@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "application", "Api.Application\application.csproj", "{BCDEEA27-1958-4395-8345-13E400EB1AE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "application", "Api.Application\application.csproj", "{BCDEEA27-1958-4395-8345-13E400EB1AE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Api.Domain\Domain.csproj", "{E277BADA-4886-4F19-BA99-DE8BC36B1F3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Api.Domain\Domain.csproj", "{E277BADA-4886-4F19-BA99-DE8BC36B1F3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting", "Api.Crosscutting\CrossCutting.csproj", "{75C94632-6C64-488C-8865-25074062FC35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCutting", "Api.Crosscutting\CrossCutting.csproj", "{75C94632-6C64-488C-8865-25074062FC35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Api.Data\Data.csproj", "{45EB92FF-0C2F-479D-8454-721679E65AF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Api.Data\Data.csproj", "{45EB92FF-0C2F-479D-8454-721679E65AF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Api.Service\Service.csproj", "{F651DD2D-A4B7-498F-B62C-8A363F85677E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BCDEEA27-1958-4395-8345-13E400EB1AE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,5 +71,23 @@ Global
 		{45EB92FF-0C2F-479D-8454-721679E65AF7}.Release|x64.Build.0 = Release|Any CPU
 		{45EB92FF-0C2F-479D-8454-721679E65AF7}.Release|x86.ActiveCfg = Release|Any CPU
 		{45EB92FF-0C2F-479D-8454-721679E65AF7}.Release|x86.Build.0 = Release|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Debug|x64.Build.0 = Debug|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Debug|x86.Build.0 = Debug|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Release|x64.ActiveCfg = Release|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Release|x64.Build.0 = Release|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Release|x86.ActiveCfg = Release|Any CPU
+		{F651DD2D-A4B7-498F-B62C-8A363F85677E}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DD874F80-2E45-4F82-A8A7-151D6B544514}
 	EndGlobalSection
 EndGlobal
