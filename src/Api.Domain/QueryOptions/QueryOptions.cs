@@ -35,7 +35,7 @@ namespace Api.Domain.QueryOptions
         
 
         private IEnumerable<object> rows;
-        [SwaggerIgnore]
+        // [SwaggerIgnore]
         public IEnumerable<object> Rows
         {
             get { return rows; }
@@ -43,7 +43,7 @@ namespace Api.Domain.QueryOptions
         }
 
         private int count;
-        [SwaggerIgnore]
+        // [SwaggerIgnore]
         public int Count
         {
             get { return count; }

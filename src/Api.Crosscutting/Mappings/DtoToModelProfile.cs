@@ -8,6 +8,8 @@ using Api.Domain.Dtos.Role;
 using Api.Domain.Dtos.Permission;
 using Api.Domain.Models;
 using AutoMapper;
+using Domain.Interfaces.QueryOptions;
+using Api.Domain.Interfaces.QueryOptions;
 
 namespace Api.CrossCutting.Mappings
 {
@@ -70,6 +72,11 @@ namespace Api.CrossCutting.Mappings
             CreateMap<ElectionModel, ElectionDtoUpdate>()
                 .ReverseMap();
             #endregion
+
+
+
+            CreateMap<IQueryOptionsInput, IQueryOptions>()
+               .ReverseMap();
 
 
         }

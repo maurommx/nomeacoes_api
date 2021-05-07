@@ -11,7 +11,7 @@ namespace Api.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [EnableCors("MyAllowSpecificOrigins")]
+    [EnableCors("MyAllowSpecificOrigins")]
     public class LoginController : ControllerBase
     {
         [AllowAnonymous]

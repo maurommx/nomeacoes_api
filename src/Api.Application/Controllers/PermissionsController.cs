@@ -9,12 +9,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using Api.Domain.Interfaces.QueryOptions;
+using Domain.Interfaces.QueryOptions;
 
 namespace Api.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [EnableCors("MyAllowSpecificOrigins")]
+    // [EnableCors]
+    [EnableCors("MyAllowSpecificOrigins")]
     public class PermissionsController : ControllerBase
     {
         public IPermissionService _service { get; set; }
@@ -25,8 +27,8 @@ namespace Api.Application.Controllers
 
         // [Authorize("Bearer")]
         // [AuthorizeClaim("Permissions", "permission-list")]
-        [HttpPost]
-        public async Task<ActionResult> GetAll([FromQuery] QueryOptions query)
+        [HttpPost("GetAll")]
+        public async Task<ActionResult> GetAll([FromBody] QueryOptionsInput query)
         {
             if (!ModelState.IsValid)
             {
@@ -34,6 +36,7 @@ namespace Api.Application.Controllers
             }
             try
             {
+                // return null;
                 return Ok(await _service.GetAll(query));
             }
             catch (ArgumentException e)

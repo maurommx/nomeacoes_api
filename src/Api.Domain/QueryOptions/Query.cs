@@ -23,9 +23,9 @@ namespace Domain.QueryOptions
 			set { text = value; }
 		}
 
-		private OperatorsEnum _operator = OperatorsEnum.CONTEM;
+		private string _operator = "CONTEM";
 
-		public OperatorsEnum Operator
+		public string Operator
 		{
 			get { return _operator; }
 			set { _operator = value; }
@@ -33,38 +33,43 @@ namespace Domain.QueryOptions
 
         public string GetQueryString()
         {
-            string ret = null;
-            switch (Operator)
-            {
-                case OperatorsEnum.IGUAL:
-                    ret = $"{Field} = '{Text}'";
-                    break;
-                case OperatorsEnum.DIFERENTE:
-                    ret = $"{Field} <> '{Text}'";
-                    break;
-                case OperatorsEnum.COMECACOM:
-                    ret = $"{Field} LIKE '{Text}%'";
-                    break;
-                case OperatorsEnum.TERMINACOM:
-                    ret = $"{Field} LIKE '%{Text}'";
-                    break;
-                case OperatorsEnum.CONTEM:
-                    ret = $"{Field} LIKE \"%{Text}%\"";
-                    break;
-                case OperatorsEnum.MAIOR:
-                    ret = $"{Field} > {Text}";
-                    break;
-                case OperatorsEnum.MAIOROUIQUAL:
-                    ret = $"{Field} >= {Text}";
-                    break;
-                case OperatorsEnum.MENOR:
-                    ret = $"{Field} < {Text}";
-                    break;
-                case OperatorsEnum.MENOROUIGUAL:
-                    ret = $"{Field} <= {Text}";
-                    break;
+            if (!String.IsNullOrEmpty(field)) {
+                string ret = null;
+                switch (Operator.ToUpper())
+                {
+                    case "IGUAL":
+                        ret = $"{Field} = '{Text}'";
+                        break;
+                    case "DIFERENTE":
+                        ret = $"{Field} <> '{Text}'";
+                        break;
+                    case "COMECACOM":
+                        ret = $"{Field} LIKE '{Text}%'";
+                        break;
+                    case "TERMINACOM":
+                        ret = $"{Field} LIKE '%{Text}'";
+                        break;
+                    case "CONTEM":
+                        ret = $"{Field}.Contains(\"%{Text}%\")";
+                        // ret = $"{Field} LIKE \"%{Text}%\"";
+                        break;
+                    case "MAIOR":
+                        ret = $"{Field} > {Text}";
+                        break;
+                    case "MAIOROUIQUAL":
+                        ret = $"{Field} >= {Text}";
+                        break;
+                    case "MENOR":
+                        ret = $"{Field} < {Text}";
+                        break;
+                    case "MENOROUIGUAL":
+                        ret = $"{Field} <= {Text}";
+                        break;
+                }
+                return ret;
+            } else {
+                return null;
             }
-            return ret;
         }
 
         public Query() { }
@@ -79,7 +84,7 @@ namespace Domain.QueryOptions
             this.text = Text;
         }
 
-        public Query(string Field, string Text, OperatorsEnum Operator) : this(Field, Text)
+        public Query(string Field, string Text, string Operator) : this(Field, Text)
         {
             this._operator = Operator;
         }

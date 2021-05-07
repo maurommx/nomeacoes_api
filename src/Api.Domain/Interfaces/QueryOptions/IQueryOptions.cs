@@ -13,9 +13,9 @@ namespace Api.Domain.Interfaces.QueryOptions
         bool IsQuery();
 
         
-        [SwaggerIgnore]
+        // [SwaggerIgnore]
         IEnumerable<object> Rows { get; set; }
-        [SwaggerIgnore]
+        // [SwaggerIgnore]
         int Count { get; set; }
 
         void setRows(IEnumerable<object> Rows);

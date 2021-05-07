@@ -106,6 +106,8 @@ namespace Api.Data.Repository
 
                 var _dataset1 = _dataset.AsTracking();
 
+                if (!string.IsNullOrEmpty(querys))
+                    _dataset1 = _dataset.Where(querys);
 
                 if (!string.IsNullOrEmpty(ord))
                     _dataset1 = _dataset.OrderBy(ord);

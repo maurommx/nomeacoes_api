@@ -6,8 +6,8 @@ namespace Domain.Interfaces.QueryOptions
     {
         public interface IQueryOptionsInput
         {
-            IPaging Paging { get; set; }
-            IQuery Query { get; set; }
+            IPaginationInput Paging { get; set; }
+            IQueryInput Query { get; set; }
             IOrderBy OrderBy { get; set; }
         }
     }

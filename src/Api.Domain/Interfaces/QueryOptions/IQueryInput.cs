@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces.QueryOptions
 {
-    public interface IQuery
+    public interface IQueryInput
     {
         string Field { get; set; }
         string Operator { get; set; }

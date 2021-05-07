@@ -7,7 +7,9 @@ using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.QueryOptions;
 using Api.Domain.Interfaces.Services.Permission;
 using Api.Domain.Models;
+using Api.Domain.QueryOptions;
 using AutoMapper;
+using Domain.Interfaces.QueryOptions;
 
 namespace Api.Service.Services
 {
@@ -36,8 +38,16 @@ namespace Api.Service.Services
             // return dto;
         }
 
-        public async Task<IQueryOptions> GetAll(IQueryOptions query)
+        public async Task<IQueryOptions> GetAll(QueryOptionsInput query1)
         {
+            // IQueryOptions query = _mapper.Map<IQueryOptions>(query1);
+            IQueryOptions query = new QueryOptions();
+            query.OrderBy = query1.OrderBy;
+            query.Pagination.PageSize = query1.Pagination.PageSize;
+            query.Pagination.Page = query1.Pagination.Page;
+            query.Query.Field = query1.Query.Field;
+            query.Query.Operator = query1.Query.Operator;
+            query.Query.Text = query1.Query.Text;
             var listEntity = await _repository.SelectAsync(query);
             query.Rows = _mapper.Map<IEnumerable<PermissionDto>>(listEntity.Rows);
             return query;

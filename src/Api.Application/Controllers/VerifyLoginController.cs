@@ -10,7 +10,8 @@ namespace Api.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors]
+    // [EnableCors]
+    [EnableCors("MyAllowSpecificOrigins")]
     public class VerifyLoginController : ControllerBase
     {
         // [Authorize("Bearer")]

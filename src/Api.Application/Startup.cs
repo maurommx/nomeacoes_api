@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.Application.Filters;
 using Api.Application.Middleware;
+using Api.Crosscutting.Mappings;
 using Api.CrossCutting.DependencyInjection;
 using Api.CrossCutting.Mappings;
 using Api.Domain.Security;
@@ -107,6 +108,7 @@ namespace application
                 cfg.AddProfile(new DtoToModelProfile());
                 cfg.AddProfile(new EntityToDtoProfile());
                 cfg.AddProfile(new ModelToEntityProfile());
+                cfg.AddProfile(new OthersMappings());
             });
 
             IMapper mapper = config.CreateMapper();
